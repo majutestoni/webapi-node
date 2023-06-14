@@ -17,6 +17,31 @@ Necessario criar um database MariaDB ou Mysql como o nome "webapi" para então p
  npm start
 ```
 que levantará o projeto
+## Tabelas
+#### Tabela empresa
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `int` | **Obrigatório**. id da empresa |
+| `razao_social` | `varchar` | **Obrigatório**. |
+| `cep` | `char` | **Obrigatório**. tamanho = 8 |
+| `cidade` | `varchar` | **Obrigatório**.|
+| `estado` | `char` | **Obrigatório**. tamanho = 2 |
+| `bairro` | `varchar` | **Obrigatório**.|
+| `complemento` | `varchar` | complemento |
+| `ativa` | `bool` | **Obrigatório**. utilizado para exclusao logica |
+
+
+#### Tabela licensa ambiental
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `id` | `int` | **Obrigatório**. id da licensa |
+| `numero` | `varchar` | **Obrigatório**. |
+| `orgao_ambiental` | `varchar` | **Obrigatório**|
+| `emissao` | `date` | **Obrigatório** |
+| `validade` | `date` | **Obrigatório**. |
+| `empresa` | `int` | **Obrigatório**. chave estrangeira que liga  a empresa |
+
 ## Utilizado
 
  - [Express](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
