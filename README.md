@@ -44,8 +44,10 @@ que levantará o projeto
 
 ## Utilizado
 
- - [Express](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Mysql](https://github.com/matiassingers/awesome-readme)
+ - [Express](https://expressjs.com/pt-br/)
+ - [Typeorm](https://typeorm.io/)
+ - [Mysql2](https://www.npmjs.com/package/mysql2) - e MariaDB na workbench 
+ - [DBeaver](https://dbeaver.io/download/) - Como workbench
 
 ## Notas de Dev
  ### Migrations
