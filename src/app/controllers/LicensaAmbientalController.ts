@@ -23,4 +23,56 @@ licensaRouter.post("/insert", async (req: Request, res: Response): Promise<Respo
   }
 });
 
+licensaRouter.get("/:id", async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const id: string = req.params.id;
+    const idNumero = Number(id);
+
+    const licensa = await LicensaAmbientalRepository.getLicensaById(idNumero);
+    if (licensa.length > 0) {
+      return res.status(200).json(licensa[0]);
+    } else {
+      return res.status(200).json("licensa não encontrada");
+    }
+  } catch (error) {
+    return res.status(422).json("licensa não encontrada");
+  }
+});
+
+licensaRouter.put("/update/:id", async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const id: string = req.params.id;
+    const body = req.body;
+    const idNumero = Number(id);
+
+    const licensa = await LicensaAmbientalRepository.getLicensaById(idNumero);
+
+    if (licensa.length > 0) {
+      LicensaAmbientalRepository.updateLicensa(body, idNumero);
+      return res.status(200).json("Atualizado");
+    } else {
+      return res.status(200).json("licensa não encontrada");
+    }
+  } catch (error) {
+    return res.status(422).json("formato invalido");
+  }
+});
+
+licensaRouter.delete("/delete/:id", async (req: Request, res: Response): Promise<Response> => {
+  try {
+    const id: string = req.params.id;
+    const idNumero = Number(id);
+
+    const licensa = await LicensaAmbientalRepository.getLicensaById(idNumero);
+    if (licensa.length > 0) {
+      LicensaAmbientalRepository.deleteLicensa(idNumero);
+      return res.status(200).json(licensa);
+    } else {
+      return res.status(200).json("licensa não encontrada");
+    }
+  } catch (error) {
+    return res.status(422).json("formato invalido");
+  }
+});
+
 export { licensasRouter, licensaRouter };

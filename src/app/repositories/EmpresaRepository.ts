@@ -5,18 +5,18 @@ import { FindOptionsWhere, UpdateResult } from "typeorm";
 const empresaRepository = AppDataSource.getRepository(Empresa);
 
 const getEmpresas = (): Promise<IEmpresa[]> => {
-  return empresaRepository.find();
+  return empresaRepository.query(`SELECT * FROM empresa WHERE ativa <> 0`);
 };
 
 const postEmpresa = (empresa: IEmpresa): Promise<IEmpresa> => {
   return empresaRepository.save(empresa);
 };
 
-const updateEmpresa = (empresaAtual: IEmpresa, atualizar): Promise<UpdateResult> => {
-  return empresaRepository.update(atualizar, empresaAtual);
+const updateEmpresa = (atualizar: IEmpresa, id): Promise<UpdateResult> => {
+  return empresaRepository.update(id, atualizar);
 }
 
-const getEmpresaById = (id: number): Promise<IEmpresa> => {
-  return empresaRepository.query(`SELECT * FROM empresas WHERE id = ${id}`);
+const getEmpresaById = (id: number): Promise<IEmpresa[]> => {
+  return empresaRepository.query(`SELECT * FROM empresa WHERE id = ${id}`);
 };
 export default { getEmpresas, postEmpresa, getEmpresaById, updateEmpresa };
