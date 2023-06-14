@@ -32,8 +32,8 @@ empresaRouter.get("/:id", async (req: Request, res: Response): Promise<Response>
     const idNumero = Number(id);
 
     const empresa = await EmpresaRepository.getEmpresaById(idNumero);
-    if (empresa.length > 0) {
-      return res.status(200).json(empresa[0]);
+    if (empresa != undefined) {
+      return res.status(200).json(empresa);
     } else {
     return res.status(200).json("Empresa não encontrada");
 
@@ -51,7 +51,7 @@ empresaRouter.put("/update/:id", async (req: Request, res: Response): Promise<Re
 
     const empresa = await EmpresaRepository.getEmpresaById(idNumero);
 
-    if(empresa.length > 0){
+    if(empresa != undefined){
       EmpresaRepository.updateEmpresa(body, idNumero);
       return res.status(200).json("Atualizado");
     } else {
@@ -70,9 +70,9 @@ empresaRouter.delete("/delete/:id", async (req: Request, res: Response): Promise
     const idNumero = Number(id);
 
     const empresa = await EmpresaRepository.getEmpresaById(idNumero);
-    if(empresa.length > 0){
-      empresa[0].ativa = false;
-      EmpresaRepository.updateEmpresa(empresa[0], id);
+    if(empresa != undefined){
+      empresa.ativa = false;
+      EmpresaRepository.updateEmpresa(empresa, id);
       return res.status(200).json(empresa);
     }else {
       return res.status(200).json("Empresa não encontrada");

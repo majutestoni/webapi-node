@@ -1,7 +1,7 @@
 
 # Web api em node
 
-## Como utilizar
+## Como utilizar o projeto em sua maquina
 
 ```bash
  git clone https://github.com/majutestoni/webapi-node.git
@@ -11,13 +11,12 @@
  npm i
 ```
 
-Necessario criar um database MariaDB ou Mysql como o nome "webapi" para então poder dar o comando 
+Necessario criar um database MariaDB ou Mysql como o nome "webapi", demais informações de banco de dados disponível em: src\database\data-source.ts, comando de build:
 
 ```bash
  npm start
 ```
-que levantará o projeto
-## Tabelas
+
 #### Tabela empresa
 
 | Parâmetro   | Tipo       | Descrição                           |
@@ -44,14 +43,8 @@ que levantará o projeto
 
 ## Utilizado
 
- - [Express](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Mysql](https://github.com/matiassingers/awesome-readme)
-
-## Notas de Dev
- ### Migrations
-
-1. para criar `npm run typeorm migration:create src/database/migrations/createEmpresa` 
-2. Para rodar `npm run typeorm -- -d ./src/database/data-source.ts migration:run`
-
-
-
+ - [Express](https://expressjs.com/pt-br/)
+ - [Typeorm](https://typeorm.io/)
+ - [Mysql2](https://www.npmjs.com/package/mysql2) - e MariaDB na workbench 
+ - [DBeaver](https://dbeaver.io/download/) - Como workbench
+ - [Node](https://nodejs.org/en) - v14.20.0

@@ -29,8 +29,8 @@ licensaRouter.get("/:id", async (req: Request, res: Response): Promise<Response>
     const idNumero = Number(id);
 
     const licensa = await LicensaAmbientalRepository.getLicensaById(idNumero);
-    if (licensa.length > 0) {
-      return res.status(200).json(licensa[0]);
+    if (licensa != undefined) {
+      return res.status(200).json(licensa);
     } else {
       return res.status(200).json("licensa não encontrada");
     }
@@ -47,7 +47,7 @@ licensaRouter.put("/update/:id", async (req: Request, res: Response): Promise<Re
 
     const licensa = await LicensaAmbientalRepository.getLicensaById(idNumero);
 
-    if (licensa.length > 0) {
+    if (licensa != undefined) {
       LicensaAmbientalRepository.updateLicensa(body, idNumero);
       return res.status(200).json("Atualizado");
     } else {
@@ -64,7 +64,7 @@ licensaRouter.delete("/delete/:id", async (req: Request, res: Response): Promise
     const idNumero = Number(id);
 
     const licensa = await LicensaAmbientalRepository.getLicensaById(idNumero);
-    if (licensa.length > 0) {
+    if (licensa != undefined) {
       LicensaAmbientalRepository.deleteLicensa(idNumero);
       return res.status(200).json(licensa);
     } else {

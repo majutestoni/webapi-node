@@ -14,9 +14,9 @@ const postEmpresa = (empresa: IEmpresa): Promise<IEmpresa> => {
 
 const updateEmpresa = (atualizar: IEmpresa, id): Promise<UpdateResult> => {
   return empresaRepository.update(id, atualizar);
-}
+};
 
-const getEmpresaById = (id: number): Promise<IEmpresa[]> => {
-  return empresaRepository.query(`SELECT * FROM empresa WHERE id = ${id}`);
+const getEmpresaById = (id: number): Promise<IEmpresa | undefined> => {
+  return empresaRepository.createQueryBuilder("empresa").where("empresa.id = :id", { id }).getOne();
 };
 export default { getEmpresas, postEmpresa, getEmpresaById, updateEmpresa };

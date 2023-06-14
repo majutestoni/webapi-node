@@ -4,9 +4,13 @@ import LicensaAmbiental from "../entities/LicensaAmbiental";
 import ILicensaAmbiental from "../interfaces/ILicensaAmbiental";
 const licensaRepository = AppDataSource.getRepository(LicensaAmbiental);
 
-const getLicensas = (): Promise<ILicensaAmbiental[]> => {
-  return licensaRepository.find();
-};
+ const getLicensas = (): Promise<ILicensaAmbiental[]> => {
+   return licensaRepository
+     .createQueryBuilder("licensa")
+     .leftJoinAndSelect("licensa.empresa", "empresa")
+     .getMany();
+ };
+
 
 const postLicensa = (licensa: ILicensaAmbiental): Promise<LicensaAmbiental> => {
     return licensaRepository.save(licensa);
@@ -16,10 +20,14 @@ const postLicensa = (licensa: ILicensaAmbiental): Promise<LicensaAmbiental> => {
     return licensaRepository.update(id, atualizar);
   }
   
-  const getLicensaById = (id: number): Promise<ILicensaAmbiental[]> => {
-    return licensaRepository.query(`SELECT * FROM licensa_ambiental WHERE id = ${id}`);
+  const getLicensaById = (id: number): Promise<ILicensaAmbiental | undefined> => {
+    return licensaRepository
+      .createQueryBuilder("licensa")
+      .leftJoinAndSelect("licensa.empresa", "empresa")
+      .where("licensa.id = :id", { id })
+      .getOne();
   };
-
+  
  const deleteLicensa = (id: number): Promise<DeleteResult> => {
   return licensaRepository.delete(id)
 };
