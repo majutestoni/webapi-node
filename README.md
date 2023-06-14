@@ -11,8 +11,12 @@
  npm i
 ```
 
-Necessario criar um database MariaDB ou Mysql como o nome "webapi", demais informações de banco de dados disponível em: src\database\data-source.ts, comando de build:
-
+- Necessario criar um database MariaDB ou Mysql como o nome "webapi", demais informações de banco de dados disponível em: src\database\data-source.ts
+- Rodar as migrations
+```bash
+ npm run typeorm -- -d ./src/database/data-source.ts migration:run
+```
+ - Levantar o projeto:
 ```bash
  npm start
 ```
