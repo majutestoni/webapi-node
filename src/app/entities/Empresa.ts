@@ -23,6 +23,10 @@ class Empresa {
 
   @Column("varchar", { length: 155, default: null })
   complemento: string;
+
+  // criar migration
+  @Column("boolean", { default: false })
+  ativa: boolean;
 }
 
 export default Empresa;

@@ -1,6 +1,7 @@
 import Empresa from "../entities/Empresa";
 import IEmpresa from "../interfaces/IEmpresa";
 import { AppDataSource } from "../../database/data-source";
+import { FindOptionsWhere, UpdateResult } from "typeorm";
 const empresaRepository = AppDataSource.getRepository(Empresa);
 
 const getEmpresas = (): Promise<IEmpresa[]> => {
@@ -8,11 +9,14 @@ const getEmpresas = (): Promise<IEmpresa[]> => {
 };
 
 const postEmpresa = (empresa: IEmpresa): Promise<IEmpresa> => {
-    return empresaRepository.save(empresa);
-  };
+  return empresaRepository.save(empresa);
+};
 
-  const getEmpresId = (id: number): Promise<IEmpresa> => {
- //   return empresaRepository.findOneBy();
-  }
+const updateEmpresa = (empresaAtual: IEmpresa, atualizar): Promise<UpdateResult> => {
+  return empresaRepository.update(atualizar, empresaAtual);
+}
 
-export default { getEmpresas, postEmpresa };
+const getEmpresaById = (id: number): Promise<IEmpresa> => {
+  return empresaRepository.query(`SELECT * FROM empresas WHERE id = ${id}`);
+};
+export default { getEmpresas, postEmpresa, getEmpresaById, updateEmpresa };

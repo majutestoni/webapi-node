@@ -26,11 +26,43 @@ empresaRouter.post("/insert", async (req: Request, res: Response): Promise<Respo
   }
 });
 
-empresaRouter.post("/:id", async (req: Request, res: Response): Promise<Response> => {
+// testar
+empresaRouter.get("/:id", async (req: Request, res: Response): Promise<Response> => {
     try {
-      const newEmpresa: IEmpresa = req.body;
+      const id: string = req.params.id;
+      const idNumero= Number(id)
   
-      const empresa = await EmpresaRepository.postEmpresa(newEmpresa);
+      const empresa = await EmpresaRepository.getEmpresaById(idNumero);
+      return res.status(200).json(empresa);
+    } catch (error) {
+      return res.status(422).json("formato invalido")
+    }
+  });
+
+  // testar
+  empresaRouter.put("/:id", async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const id: string = req.params.id;
+      const body = req.body
+      const idNumero= Number(id)
+  
+      const empresa = await EmpresaRepository.getEmpresaById(idNumero);
+      EmpresaRepository.updateEmpresa(empresa, body)
+      return res.status(200).json(empresa);
+    } catch (error) {
+      return res.status(422).json("formato invalido")
+    }
+  });
+
+  // testar
+  empresaRouter.delete("/:id", async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const id: string = req.params.id;
+      const idNumero= Number(id)
+  
+      const empresa = await EmpresaRepository.getEmpresaById(idNumero);
+      empresa.ativa = false;
+      EmpresaRepository.postEmpresa(empresa)
       return res.status(200).json(empresa);
     } catch (error) {
       return res.status(422).json("formato invalido")
