@@ -13,6 +13,7 @@ export class CreateEmpresa1686677786090 implements MigrationInterface {
           { name: "estado", type: "char", length: "2", isNullable: false },
           { name: "bairro", type: "varchar", length: "155", isNullable: false },
           { name: "complemento", type: "varchar", length: "155" },
+          { name: "ativa", type: "boolean", default: false},
         ],
       })
     );
