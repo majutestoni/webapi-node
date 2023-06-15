@@ -10,7 +10,7 @@ empresasRouter.get("/", async (_req: Request, res: Response): Promise<Response> 
     const empresas = await EmpresaRepository.getEmpresas();
     return res.status(200).json(empresas);
   } catch (error) {
-    return res.status(401).json("Nenhuma empresa encontrada");
+    return res.status(401).json({message: "Nenhuma empresa encontrada", error: error});
   }
 });
 
@@ -20,9 +20,9 @@ empresaRouter.post("/insert", async (req: Request, res: Response): Promise<Respo
 
     newEmpresa.ativa = true;
     const empresa = await EmpresaRepository.postEmpresa(newEmpresa);
-    return res.status(200).json(empresa);
+    return res.status(201).json(empresa);
   } catch (error) {
-    return res.status(422).json("formato invalido");
+    return res.status(422).json({message: "formato invalido", error: error.driverError});
   }
 });
 
@@ -32,14 +32,13 @@ empresaRouter.get("/:id", async (req: Request, res: Response): Promise<Response>
     const idNumero = Number(id);
 
     const empresa = await EmpresaRepository.getEmpresaById(idNumero);
-    if (empresa != undefined) {
+    if (empresa != undefined && empresa != null) {
       return res.status(200).json(empresa);
     } else {
-    return res.status(200).json("Empresa não encontrada");
-
+      return res.status(404).json({message: 'Empresa não encontrada'})
     }
   } catch (error) {
-    return res.status(422).json("Empresa não encontrada");
+    return res.status(422).json({ message: "Falha ao procurar empresa", error: error });
   }
 });
 
@@ -55,11 +54,11 @@ empresaRouter.put("/update/:id", async (req: Request, res: Response): Promise<Re
       EmpresaRepository.updateEmpresa(body, idNumero);
       return res.status(200).json("Atualizado");
     } else {
-      return res.status(200).json("Empresa não encontrada");
+      return res.status(404).json({message: 'Empresa não encontrada'})
     }
 
   } catch (error) {
-    return res.status(422).json("formato invalido");
+    return res.status(422).json({message: "formato invalido", error: error});
   }
 });
 
@@ -75,11 +74,11 @@ empresaRouter.delete("/delete/:id", async (req: Request, res: Response): Promise
       EmpresaRepository.updateEmpresa(empresa, id);
       return res.status(200).json(empresa);
     }else {
-      return res.status(200).json("Empresa não encontrada");
+      return res.status(404).json({message: 'Empresa não encontrada'})
 
     }
   } catch (error) {
-    return res.status(422).json("formato invalido");
+    return res.status(422).json({message: "formato invalido", error: error});
   }
 });
 

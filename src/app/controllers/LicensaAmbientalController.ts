@@ -8,7 +8,7 @@ licensasRouter.get("/", async (_req: Request, res: Response): Promise<Response> 
     const licensas = await LicensaAmbientalRepository.getLicensas();
     return res.status(200).json(licensas);
   } catch (error) {
-    return res.status(401).json("Nenhuma licensa encontrada");
+    return res.status(401).json({message: "Nenhuma licensa encontrada", error: error});
   }
 });
 
@@ -19,7 +19,7 @@ licensaRouter.post("/insert", async (req: Request, res: Response): Promise<Respo
     const licensa = await LicensaAmbientalRepository.postLicensa(newLicensa);
     return res.status(200).json(licensa);
   } catch (error) {
-    return res.status(422).json("Formato inválido");
+    return res.status(422).json({message: "Formato inválido", error: error.driverError});
   }
 });
 
@@ -32,10 +32,10 @@ licensaRouter.get("/:id", async (req: Request, res: Response): Promise<Response>
     if (licensa != undefined) {
       return res.status(200).json(licensa);
     } else {
-      return res.status(200).json("licensa não encontrada");
+      return res.status(401).json({message: "licensa não encontrada"});
     }
   } catch (error) {
-    return res.status(422).json("licensa não encontrada");
+    return res.status(422).json({message: "Falha ao procurar licensa", error: error});
   }
 });
 
@@ -51,10 +51,10 @@ licensaRouter.put("/update/:id", async (req: Request, res: Response): Promise<Re
       LicensaAmbientalRepository.updateLicensa(body, idNumero);
       return res.status(200).json("Atualizado");
     } else {
-      return res.status(200).json("licensa não encontrada");
+      return res.status(401).json({message: "licensa não encontrada"});
     }
   } catch (error) {
-    return res.status(422).json("formato invalido");
+    return res.status(422).json({message: "Falha ao tentar atualizar licensa", error: error});
   }
 });
 
@@ -68,10 +68,10 @@ licensaRouter.delete("/delete/:id", async (req: Request, res: Response): Promise
       LicensaAmbientalRepository.deleteLicensa(idNumero);
       return res.status(200).json(licensa);
     } else {
-      return res.status(200).json("licensa não encontrada");
+      return res.status(401).json({message: "licensa não encontrada"});
     }
   } catch (error) {
-    return res.status(422).json("formato invalido");
+    return res.status(422).json({message: "Falha ao tentar deleta licensa", error: error});
   }
 });
 
