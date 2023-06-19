@@ -4,6 +4,8 @@ import {CreateEmpresa1686677786090} from '../database/migrations/1686677786090-c
 import Empresa from "../app/entities/Empresa"
 import { CreateLicensaAmbiental1686681261270 } from "./migrations/1686681261270-createLicensaAmbiental"
 import LicensaAmbiental from "../app/entities/LicensaAmbiental"
+import { InsertValues1687191132224 } from "./migrations/1687191132224-insertValues"
+import { InsertLicensa1687191682720 } from "./migrations/1687191682720-insertLicensa"
 require('dotenv/config');
 
 export const AppDataSource = new DataSource({
@@ -16,6 +18,6 @@ export const AppDataSource = new DataSource({
     synchronize: true,
     logging: false,
     entities: [Empresa, LicensaAmbiental],
-    migrations: [CreateEmpresa1686677786090, CreateLicensaAmbiental1686681261270],
+    migrations: [CreateEmpresa1686677786090, CreateLicensaAmbiental1686681261270,InsertValues1687191132224, InsertLicensa1687191682720],
     subscribers: [],
 })
